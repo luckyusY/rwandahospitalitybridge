@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChefHat } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", path: "/" },
+  { label: "Home",      path: "/" },
   { label: "Find Jobs", path: "/jobs" },
-  { label: "Services", path: "/services" },
-  { label: "About", path: "/about" },
-  { label: "Contact", path: "/contact" },
+  { label: "Services",  path: "/services" },
+  { label: "About",     path: "/about" },
+  { label: "Contact",   path: "/contact" },
 ];
 
 export default function Navbar() {
@@ -24,108 +24,231 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navBg =
-    isHome
-      ? scrolled
-        ? "bg-[#141719]/95 backdrop-blur-md shadow-lg"
-        : "bg-transparent"
-      : "bg-[#141719] shadow-lg";
+  const navBg = isHome
+    ? scrolled
+      ? "rgba(20,23,25,0.95)"
+      : "transparent"
+    : "#141719";
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 bg-[#e08f1f] rounded-lg flex items-center justify-center group-hover:bg-[#e9a83b] transition-colors">
-              <ChefHat className="w-5 h-5 text-white" />
+    <nav
+      style={{
+        position: "fixed",
+        top: 0, left: 0, right: 0,
+        zIndex: 50,
+        background: navBg,
+        backdropFilter: scrolled ? "blur(12px)" : "none",
+        boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.3)" : "none",
+        transition: "background 0.3s ease, box-shadow 0.3s ease",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "none",
+      }}
+    >
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: 72,
+          }}
+        >
+          {/* ── Logo ── */}
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+            <div
+              style={{
+                width: 38, height: 38,
+                background: "#e08f1f",
+                borderRadius: 10,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <ChefHat style={{ width: 20, height: 20, color: "#fff" }} />
             </div>
-            <div className="leading-tight">
-              <div className="text-white font-[family-name:var(--font-heading)] font-bold text-base leading-none">
+            <div style={{ lineHeight: 1.2 }}>
+              <div style={{ color: "#fff", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, whiteSpace: "nowrap" }}>
                 Rwanda Hospitality
               </div>
-              <div className="text-[#e9a83b] text-xs font-medium tracking-wide">Bridge</div>
+              <div style={{ color: "#e9a83b", fontSize: 11, fontWeight: 600, letterSpacing: "0.05em" }}>
+                Bridge
+              </div>
             </div>
           </Link>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* ── Desktop Nav Links ── */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+            }}
+            className="desktop-nav"
+          >
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 href={link.path}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === link.path
-                    ? "text-[#e9a83b] bg-white/10"
-                    : "text-gray-300 hover:text-white hover:bg-white/10"
-                }`}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: 8,
+                  fontSize: 14,
+                  fontWeight: 500,
+                  textDecoration: "none",
+                  color: pathname === link.path ? "#e9a83b" : "#d1d5db",
+                  background: pathname === link.path ? "rgba(255,255,255,0.1)" : "transparent",
+                  transition: "color 0.2s, background 0.2s",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={(e) => {
+                  if (pathname !== link.path) {
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#fff";
+                    (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.08)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (pathname !== link.path) {
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#d1d5db";
+                    (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                  }
+                }}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* ── CTA Buttons ── */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }} className="desktop-nav">
             <Link
               href="/contact"
-              className="px-4 py-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors"
+              style={{
+                padding: "8px 16px",
+                fontSize: 14,
+                fontWeight: 600,
+                color: "#d1d5db",
+                textDecoration: "none",
+                transition: "color 0.2s",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#fff"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#d1d5db"; }}
             >
               Post a Job
             </Link>
             <Link
               href="/jobs"
-              className="px-5 py-2.5 bg-[#e08f1f] hover:bg-[#e9a83b] text-white text-sm font-semibold rounded-lg transition-colors shadow"
+              style={{
+                padding: "10px 20px",
+                background: "#e08f1f",
+                color: "#fff",
+                fontSize: 14,
+                fontWeight: 600,
+                borderRadius: 8,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                boxShadow: "0 2px 8px rgba(224,143,31,0.35)",
+                transition: "background 0.2s",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "#e9a83b"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "#e08f1f"; }}
             >
               Find Talent
             </Link>
           </div>
 
-          {/* Mobile toggle */}
+          {/* ── Mobile Hamburger ── */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden p-2 text-gray-300 hover:text-white"
+            style={{
+              display: "none",
+              padding: 8,
+              color: "#d1d5db",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+            }}
+            className="mobile-menu-btn"
           >
-            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {open ? <X style={{ width: 24, height: 24 }} /> : <Menu style={{ width: 24, height: 24 }} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* ── Mobile Menu ── */}
       {open && (
-        <div className="md:hidden bg-[#141719] border-t border-white/10 px-4 pb-4">
+        <div
+          style={{
+            background: "#141719",
+            borderTop: "1px solid rgba(255,255,255,0.1)",
+            padding: "12px 24px 20px",
+          }}
+          className="mobile-menu"
+        >
           {navLinks.map((link) => (
             <Link
               key={link.path}
               href={link.path}
               onClick={() => setOpen(false)}
-              className={`block px-3 py-3 text-sm font-medium rounded-lg mb-1 transition-colors ${
-                pathname === link.path
-                  ? "text-[#e9a83b] bg-white/10"
-                  : "text-gray-300 hover:text-white hover:bg-white/10"
-              }`}
+              style={{
+                display: "block",
+                padding: "12px 12px",
+                fontSize: 14,
+                fontWeight: 500,
+                borderRadius: 8,
+                marginBottom: 4,
+                textDecoration: "none",
+                color: pathname === link.path ? "#e9a83b" : "#d1d5db",
+                background: pathname === link.path ? "rgba(255,255,255,0.1)" : "transparent",
+              }}
             >
               {link.label}
             </Link>
           ))}
-          <div className="mt-3 pt-3 border-t border-white/10 flex flex-col gap-2">
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="block text-center px-4 py-2.5 text-sm font-semibold text-white border border-white/20 rounded-lg hover:bg-white/10 transition-colors"
+              style={{
+                display: "block",
+                textAlign: "center",
+                padding: "10px 16px",
+                fontSize: 14,
+                fontWeight: 600,
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,0.2)",
+                borderRadius: 8,
+                textDecoration: "none",
+              }}
             >
               Post a Job
             </Link>
             <Link
               href="/jobs"
               onClick={() => setOpen(false)}
-              className="block text-center px-4 py-2.5 text-sm font-semibold bg-[#e08f1f] hover:bg-[#e9a83b] text-white rounded-lg transition-colors"
+              style={{
+                display: "block",
+                textAlign: "center",
+                padding: "10px 16px",
+                fontSize: 14,
+                fontWeight: 600,
+                background: "#e08f1f",
+                color: "#fff",
+                borderRadius: 8,
+                textDecoration: "none",
+              }}
             >
               Find Talent
             </Link>
           </div>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .mobile-menu-btn { display: flex !important; }
+        }
+      `}</style>
     </nav>
   );
 }
