@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import {
   ArrowRight, Search, Users, Building2, Star,
@@ -50,13 +51,12 @@ export default function HomePage() {
         style={{ background: "#1b3921" }}
       >
         {/* Hero background image */}
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&h=900&fit=crop"
-          alt="Luxury hotel Rwanda"
-          style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center", opacity: 0.25,
-          }}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center opacity-25"
           aria-hidden="true"
         />
         {/* Dark gradient overlay */}
