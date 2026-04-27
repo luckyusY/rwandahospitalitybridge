@@ -47,8 +47,25 @@ export default function HomePage() {
       {/* ── HERO ─────────────────────────────────────────── */}
       <section
         className="relative min-h-screen flex items-center overflow-hidden"
-        style={{ background: "linear-gradient(135deg,#1b3921 0%,#25552f 40%,#1e2328 100%)" }}
+        style={{ background: "#1b3921" }}
       >
+        {/* Hero background image */}
+        <img
+          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1600&h=900&fit=crop"
+          alt="Luxury hotel Rwanda"
+          style={{
+            position: "absolute", inset: 0, width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: "center", opacity: 0.25,
+          }}
+          aria-hidden="true"
+        />
+        {/* Dark gradient overlay */}
+        <div
+          style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(135deg,rgba(27,57,33,0.92) 0%,rgba(37,85,47,0.88) 40%,rgba(30,35,40,0.92) 100%)",
+          }}
+        />
         <div
           className="absolute top-20 right-10 w-96 h-96 rounded-full blur-3xl pointer-events-none"
           style={{ background: "rgba(224,143,31,0.08)" }}
