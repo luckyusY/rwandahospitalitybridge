@@ -1,14 +1,65 @@
 import Link from "next/link";
-import { ChefHat, Mail, Phone, MapPin, Globe, AtSign, Share2, Rss } from "lucide-react";
+import { ChefHat, Mail, Phone, MapPin, Globe, AtSign, Share2, Rss, ArrowRight } from "lucide-react";
 
 const socialIcons = [Globe, AtSign, Share2, Rss];
 
 export default function Footer() {
   return (
     <footer className="bg-[#141719] text-gray-400">
+      {/* Quick-links banner */}
+      <div style={{ background: "#1b3921" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(255,255,255,0.1)" }}>
+                <span className="text-lg">🏨</span>
+              </div>
+              <div>
+                <div className="text-white font-semibold text-sm mb-1">Need Hotel Staff?</div>
+                <p className="text-green-300 text-xs leading-relaxed mb-2">
+                  We place executive chefs, front desk managers, housekeeping supervisors and more.
+                </p>
+                <Link href="/services" className="text-xs font-semibold flex items-center gap-1" style={{ color: "#e9a83b" }}>
+                  View Services <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(255,255,255,0.1)" }}>
+                <span className="text-lg">📋</span>
+              </div>
+              <div>
+                <div className="text-white font-semibold text-sm mb-1">Looking for a Job?</div>
+                <p className="text-green-300 text-xs leading-relaxed mb-2">
+                  Browse 32+ open positions in hotels, restaurants, bars and lodges across Rwanda.
+                </p>
+                <Link href="/jobs" className="text-xs font-semibold flex items-center gap-1" style={{ color: "#e9a83b" }}>
+                  Browse Jobs <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(255,255,255,0.1)" }}>
+                <span className="text-lg">🎓</span>
+              </div>
+              <div>
+                <div className="text-white font-semibold text-sm mb-1">Training & Consulting</div>
+                <p className="text-green-300 text-xs leading-relaxed mb-2">
+                  Upskill your team with hospitality training, HR consulting and branding services.
+                </p>
+                <Link href="/services" className="text-xs font-semibold flex items-center gap-1" style={{ color: "#e9a83b" }}>
+                  Learn More <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+          {/* Brand */}
+          <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
               <div className="w-9 h-9 bg-[#e08f1f] rounded-lg flex items-center justify-center">
                 <ChefHat className="w-5 h-5 text-white" />
@@ -30,6 +81,7 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Quick Links */}
           <div>
             <h4 className="text-white font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2.5 text-sm">
@@ -49,15 +101,30 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Services */}
           <div>
-            <h4 className="text-white font-semibold mb-4">We Cover</h4>
+            <h4 className="text-white font-semibold mb-4">Our Services</h4>
             <ul className="space-y-2.5 text-sm">
-              {["Hotels & Resorts", "Restaurants", "Bars & Lounges", "Lodges & Camps", "Events & MICE", "HR Consulting"].map((s) => (
-                <li key={s} className="hover:text-[#e9a83b] transition-colors cursor-pointer">{s}</li>
+              {[
+                "Hotel Management",
+                "Restaurant Staffing",
+                "Bar & Nightlife",
+                "Lodge & Eco-Tourism",
+                "Events & Conferences",
+                "HR & Compliance",
+                "Training & Development",
+                "Hospitality Branding",
+              ].map((s) => (
+                <li key={s}>
+                  <Link href="/services" className="hover:text-[#e9a83b] transition-colors">
+                    {s}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
             <h4 className="text-white font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-3 text-sm">
@@ -74,6 +141,17 @@ export default function Footer() {
                 <span>hello@rwandahospitalitybridge.rw</span>
               </li>
             </ul>
+
+            {/* CTA */}
+            <div className="mt-6">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-4 py-2 text-white text-xs font-semibold rounded-lg transition-colors"
+                style={{ background: "#e08f1f" }}
+              >
+                <Phone className="w-3 h-3" /> Get in Touch
+              </Link>
+            </div>
           </div>
         </div>
 

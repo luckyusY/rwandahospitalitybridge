@@ -1,87 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { stats } from "@/lib/jobs";
-
-const services = [
-  {
-    icon: "🏨",
-    subtitle: "Full-Service Hotel Solutions",
-    title: "Hotel Management",
-    description:
-      "We connect skilled professionals with top hotels across Rwanda — from boutique guesthouses to international chains. Our talent pool covers every department: front office, F&B, housekeeping, spa, and executive management.",
-    features: [
-      "Executive & department head placement",
-      "Seasonal and permanent staffing",
-      "Operations consulting",
-      "Brand standards training",
-    ],
-  },
-  {
-    icon: "🍽️",
-    subtitle: "From Kitchen to Floor",
-    title: "Restaurant Staffing",
-    description:
-      "Whether you are opening a fine-dining restaurant or scaling a casual eatery, we match you with chefs, servers, managers and back-of-house staff who understand Rwandan and international dining culture.",
-    features: [
-      "Chef & culinary team placement",
-      "Service staff recruitment",
-      "Restaurant manager search",
-      "Pop-up & event staffing",
-    ],
-  },
-  {
-    icon: "🍸",
-    subtitle: "Expert Beverage Professionals",
-    title: "Bar & Nightlife",
-    description:
-      "Bars, rooftop lounges, and nightlife venues need the right talent. We source experienced bartenders, mixologists, baristas and beverage managers who elevate your brand and keep guests coming back.",
-    features: [
-      "Head bartender & mixologist recruitment",
-      "Barista & coffee specialist placement",
-      "Cellar & inventory management staff",
-      "Event bar crew",
-    ],
-  },
-  {
-    icon: "🌿",
-    subtitle: "Rwanda's Wild Side",
-    title: "Lodge & Eco-Tourism",
-    description:
-      "Rwanda's lodges and eco-camps are world-class. We staff them with nature guides, guest relations officers, camp managers and chefs who share the same passion for Rwanda's incredible wildlife and landscapes.",
-    features: [
-      "Nature & safari guide placement",
-      "Lodge manager recruitment",
-      "Eco-tourism specialist staffing",
-      "Gorilla trekking support staff",
-    ],
-  },
-  {
-    icon: "🎪",
-    subtitle: "World-Class Event Professionals",
-    title: "Events & Conferences",
-    description:
-      "Kigali is Africa's meetings capital. We supply event coordinators, AV technicians, hospitality hosts and corporate event managers for MICE events at convention centres and hotels across the country.",
-    features: [
-      "Event & conference coordinator placement",
-      "Protocol & host staff",
-      "Catering & banquet teams",
-      "Technical crew & AV support",
-    ],
-  },
-  {
-    icon: "📋",
-    subtitle: "People Management Made Easy",
-    title: "HR & Compliance",
-    description:
-      "Beyond recruitment, we help hospitality businesses manage HR compliance, staff onboarding, payroll structuring and training programs aligned with Rwanda's labour laws and tourism standards.",
-    features: [
-      "Employment contract drafting",
-      "Labour law compliance support",
-      "Staff onboarding & orientation",
-      "Performance management systems",
-    ],
-  },
-];
+import { services } from "@/lib/services";
 
 const steps = [
   { n: "1", title: "Brief & Understand", desc: "We learn your venue, culture, team structure and exact staffing needs." },
@@ -103,9 +23,24 @@ export default function ServicesPage() {
             Full-Spectrum Hospitality<br />
             <span style={{ color: "#e9a83b" }}>Staffing &amp; Management</span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
             From a single hire to complete HR outsourcing — we support Rwanda&apos;s hospitality industry at every level.
           </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors"
+              style={{ background: "#e08f1f" }}
+            >
+              <Phone className="w-4 h-4" /> Get a Quote
+            </Link>
+            <Link
+              href="/jobs"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg border border-white/30 hover:bg-white/10 transition-colors"
+            >
+              Browse Jobs <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -130,24 +65,46 @@ export default function ServicesPage() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-200 p-7"
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-1 transition-all duration-200 overflow-hidden"
               >
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <div className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "#e08f1f" }}>
-                  {service.subtitle}
+                {/* Service image */}
+                <div className="h-40 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <h3 className="font-[family-name:var(--font-heading)] font-bold text-[#141719] text-xl mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed mb-5">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 shrink-0" style={{ color: "#3d8549" }} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
+                <div className="p-7">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="text-3xl">{service.emoji}</div>
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#e08f1f" }}>
+                        {service.subtitle}
+                      </div>
+                      <h3 className="font-[family-name:var(--font-heading)] font-bold text-[#141719] text-lg">
+                        {service.title}
+                      </h3>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-5">{service.description}</p>
+                  <ul className="space-y-2 mb-5">
+                    {service.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
+                        <CheckCircle className="w-4 h-4 shrink-0" style={{ color: "#3d8549" }} />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-1 text-sm font-semibold"
+                    style={{ color: "#e08f1f" }}
+                  >
+                    Get Started <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -189,13 +146,21 @@ export default function ServicesPage() {
           <p className="text-green-200 mb-8">
             Tell us your requirements and we&apos;ll find the right hospitality professionals for your business — fast.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors"
-            style={{ background: "#e08f1f" }}
-          >
-            Start a Conversation <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-colors"
+              style={{ background: "#e08f1f" }}
+            >
+              Start a Conversation <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/jobs"
+              className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-lg border border-white/30 hover:bg-white/10 transition-colors"
+            >
+              Browse Jobs <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>
