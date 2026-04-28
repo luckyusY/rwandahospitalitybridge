@@ -1,3 +1,5 @@
+"use client";
+import { motion } from "framer-motion";
 import { MapPin, Clock, Users, Eye, Zap, ChevronRight } from "lucide-react";
 import type { Job } from "@/lib/jobs";
 
@@ -18,11 +20,11 @@ export default function JobCard({ job, onClick }: Props) {
   const thousands = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 
   return (
-    <div
+    <motion.div
       onClick={() => onClick(job)}
-      className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#eec163] transition-all duration-200 cursor-pointer group overflow-hidden flex flex-col"
-      onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(-3px)"; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)"; }}
+      className="bg-white rounded-2xl border border-gray-100 shadow-sm cursor-pointer group overflow-hidden flex flex-col"
+      whileHover={{ y: -5, boxShadow: "0 12px 32px rgba(0,0,0,0.10)", borderColor: "#eec163" }}
+      transition={{ type: "spring", stiffness: 300, damping: 24 }}
     >
       {/* Banner image */}
       <div className="relative h-40 w-full overflow-hidden bg-gray-100 shrink-0">
@@ -126,6 +128,6 @@ export default function JobCard({ job, onClick }: Props) {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
